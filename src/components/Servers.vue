@@ -3,16 +3,20 @@
 
       <div class="col-xs-12 col-sm-6" >
         <ul class="list-group" >
-        <li v-for="(server,i) in servers" :key="i" class="server-list" @click="changeStatus(server)">
-          {{server.name}}     |  <span :class="[server.status  === 'Active' ? 'server-active' : 'server-unavailable' ]">{{server.status}}</span>
-        </li>
+          <app-server v-for="(server,i) in servers" :key="i"
+        class="server-list"
+        :server="server">
+
+
+        </app-server>
         </ul>
       </div>
 
   </div>
 </template>
 <script>
-import {eventBus} from '../main';
+
+import Server from './Server.vue';
 export default{
   data(){
     return{
@@ -24,32 +28,36 @@ export default{
     {
     name:'Server 2',
 
-    id:1,
+    id:2,
       status:'Active'
 
 
   },
 {
     name:'Server 3',
-    id:1,
+    id:3,
       status:'Active'
 
 
   },
 {
     name:'Server 4',
-    id:1,
+    id:4,
       status:'Active'
 
 
   }]
     }
   },
+  components: {
+    appServer:Server
+  },
   methods: {
-    changeStatus:function(data){
-      console.log(data);
-      eventBus.$emit('changeStatus',data);
+    changeStatus(server) {
+      server.status='disable';
+
     }
+
   }
 
 }
